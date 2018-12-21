@@ -1,34 +1,14 @@
-$(document).ready(function(){
+var quizArea = $('#quiz');
 
-$("#start").on("click", gameStart.startimer);
-start();
-
+$(document).on("click", '#start', function () {
+    gameStart.start();
 });
-var correctGuesses = 0;
-var incorrectGuesses = 0;
-var timer = 60;
-var gameStart = {
-    timeRemaining: 60,
 
-startTimer: function() {
-    $("#timer").text("Time remaining: " + gameStart.timeRemaining);
-    setInterval(gameStart.countDown, 1000);
-    $("#quiz").hide();
-    trivia.showQuestions();
-},
-countDown: function() {
-    gameStart.timeRemaining--;
-    $("#timer").text("Time remaining: " + gameStart.timeRemaining);
-    if (gameStart.timeRemaining ===0) {
-        gameStart.stopTimer();
-        $("#timer").empty();
-    }
-// },
+$(document).on('click', '#done', function () {
+    gameStart.start();
+});
 
-// }
-// for (var i = 0; i < question.length; i++){
-
-}
+//Trivia Question and Answers
 var questions = [{
     question: "1) Which species was the first discover warp drive?",
     answers: ["Humans", "Vulcans", "Romulans", "Klingons"],
@@ -49,6 +29,104 @@ var questions = [{
     quesiton: "5) Who is the youngest captain in Starfleet history?",
     answers: ["Jonathan Archer", "Kathryn Janeway", "James T. Kirk", "Christopher Pike"],
     correctAnswer: "James T. Kirk"
-}, {
-
 }];
+
+
+var gameStart = {
+    correctGuesses = 0,
+    incorrectGuesses = 0,
+    timerRemaining = 60,
+
+    countDown: function () {
+        gameStart.timeRemaining--;
+        $("#countdown").text("Time remaining: " + gameStart.timeRemainimg);
+
+        if (gameStart.timeRemaining === 0) {
+            console.log('Time Up!');
+            gameStart.done();
+
+            // gameStart.stopTimer();
+            // $("#timer").empty();
+        }
+    },
+
+    start: function () {
+        timer = setInterval(gameStart.countDown, 1000);
+
+
+        $('.container2').prepend('<h2>Time Remaining: <span id="countdown">60</span> Seconds</h2>');
+        $('#start').remove();
+    },
+
+    //Now it's time for some for looping
+
+    for (var i = 0; i < questions.length; i++) {
+        quizArea.append('<h2>' + questions[i].question + '<h2>');
+
+        for (var j = 0; j < questions[i].answers.length; j++) {
+            quizArea.append('input type="radio" name="question" + ' - ' + i + "value=" + questions[i].answers[j] + ' ">' questions[i].answers[j]");
+        }
+    }
+
+quizArea.append('<button id="done">ENGAGE!</button>');
+}
+
+done: function() {
+    $.each($("imput[name='question-0"]: "checked"), function () {
+        if ($(this).val() == question[0].correctAnswer) {
+            gameStart.correct++;
+        } else {
+            gameStart.incorrect++;
+        }
+    });
+
+    $.each($("imput[name='question-1"}: "checked"), function() {
+        if ($(this).val() == question[1].correctAnswer) {
+            gameStart.correct++;
+        } else {
+            gameStart.incorrect++;
+        }
+    });
+
+    $.each($("imput[name='question-2"}: "checked"), function () {
+    if ($(this).val() == question[2].correctAnswer) {
+        gameStart.correct++;
+    } else {
+        gameStart.incorrect++;
+    }
+    });
+
+    $.each($("imput[name='question-3"}: "checked"), function () {
+    if ($(this).val() == question[3].correctAnswer) {
+        gameStart.correct++;
+    } else {
+        gameStart.incorrect++;
+    }
+    });
+
+    $.each($("imput[name='question-4"}: "checked"), function () {
+    if ($(this).val() == question[4].correctAnswer) {
+        gameStart.correct++;
+    } else {
+        gameStart.incorrect++;
+    }
+    
+    });
+
+this.result();
+};
+
+
+//Display the results for the user
+result: function () {
+
+    clearInterval(timer);
+
+    $('.container2 h2').remove();
+    panel.html('<h2>All Done!</h2>');
+    panel.append('<h3>Correct Answers: ' + this.correct + '</h3>');
+    panel.append('<h3>Incorrect Answers: ' + this.incorrect + '</h3>');
+    panel.append('<h3>Unanswered: ' + (questions.length - (this.correct + this.incorrect)) + '</h3>');
+}
+
+};
