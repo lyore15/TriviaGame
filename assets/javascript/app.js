@@ -1,11 +1,11 @@
-var quizArea = $('#quiz');
+var quizArea = $("#quiz");
 
 $(document).on("click", '#start', function () {
-    gameStart.start();
+    game.start();
 });
 
-$(document).on('click', '#done', function () {
-    gameStart.start();
+$(document).on("click", "#done", function () {
+    game.done();
 });
 
 //Trivia Question and Answers
@@ -26,107 +26,107 @@ var questions = [{
     answers: ["Nya", "Chiku", "Johari", "Nyota"],
     correctAnswer: "Nyota"
 }, {
-    quesiton: "5) Who is the youngest captain in Starfleet history?",
+    question: "5) Who is the youngest captain in Starfleet history?",
     answers: ["Jonathan Archer", "Kathryn Janeway", "James T. Kirk", "Christopher Pike"],
     correctAnswer: "James T. Kirk"
 }];
 
 
-var gameStart = {
-    correctGuesses = 0,
-    incorrectGuesses = 0,
-    timerRemaining = 60,
+var game = {
+    correctGuesses: 0,
+    incorrectGuesses: 0,
+    timer: 60,
 
-    countDown: function () {
-        gameStart.timeRemaining--;
-        $("#countdown").text("Time remaining: " + gameStart.timeRemainimg);
+    countdown: function () {
+        game.timer--;
+        $("#timer-number").html(game.timer);
 
-        if (gameStart.timeRemaining === 0) {
+        if (game.timer === 0) {
             console.log('Time Up!');
-            gameStart.done();
+            game.done();
 
-            // gameStart.stopTimer();
+            // game.stopTimer();
             // $("#timer").empty();
         }
     },
 
     start: function () {
-        timer = setInterval(gameStart.countDown, 1000);
+        clock = setInterval(game.countdown, 1000);
 
+        $(".container2").prepend('<h3>Time Remaining: <span id="timer-number">60</span> Seconds</h3>');
+        $("#start").remove();
+        $("#trek").remove();
 
-        $('.container2').prepend('<h2>Time Remaining: <span id="countdown">60</span> Seconds</h2>');
-        $('#start').remove();
+        //Now it's time for some for looping
+
+        for (var i = 0; i < questions.length; i++) {
+            quizArea.append('<h3>' + questions[i].question + '</h3>');
+
+            for (var j = 0; j < questions[i].answers.length; j++) {
+                quizArea.append('<input id="ans" type="radio" name="question' + '-' + i + '"value="' +  questions[i].answers[j] + '">' + questions[i].answers[j]);
+            }
+        }
+
+        quizArea.append('<button id="done">ENGAGE!</button>');
     },
 
-    //Now it's time for some for looping
+    done: function () {
 
-    for (var i = 0; i < questions.length; i++) {
-        quizArea.append('<h2>' + questions[i].question + '<h2>');
+        $.each($('input[name="question-0"]:checked'), function () {
+            if ($(this).val() == questions[0].correctAnswer) {
+                game.correctGuesses++;
+            } else {
+                game.incorrectGuesses++;
+            }
+        });
 
-        for (var j = 0; j < questions[i].answers.length; j++) {
-            quizArea.append('input type="radio" name="question" + ' - ' + i + "value=" + questions[i].answers[j] + ' ">' questions[i].answers[j]");
-        }
+        $.each($('input[name="question-1"]:checked'), function () {
+            if ($(this).val() == questions[1].correctAnswer) {
+                game.correctGuesses++;
+            } else {
+                game.incorrectGuesses++;
+            }
+        });
+
+        $.each($('input[name="question-2"]:checked'), function () {
+            if ($(this).val() == questions[2].correctAnswer) {
+                game.correctGuesses++;
+            } else {
+                game.incorrectGuesses++;
+            }
+        });
+
+        $.each($('input[name="question-3"]:checked'), function () {
+            if ($(this).val() == questions[3].correctAnswer) {
+                game.correctGuesses++;
+            } else {
+                game.incorrectGuesses++;
+            }
+        });
+
+        $.each($('input[name="question-4"]:checked'), function () {
+            if ($(this).val() == questions[4].correctAnswer) {
+                game.correctGuesses++;
+            } else {
+                game.incorrectGuesses++;
+            }
+
+        });
+
+        this.result();
+    },
+
+
+    //Display the results for the user
+    result: function () {
+
+        clearInterval(clock);
+
+        $(".container2 h3").remove();
+        quizArea.html("<h2>All Done!</h2>");
+        quizArea.append("<h3>Correct Answers: " + this.correctGuesses + '</h3>');
+        quizArea.append("<h3>Incorrect Answers: " + this.incorrectGuesses + '</h3>');
+        quizArea.append("<h3>Unanswered: " + (questions.length - (this.correctGuesses + this.incorrectGuesses)) + '</h3>');
     }
-
-quizArea.append('<button id="done">ENGAGE!</button>');
-}
-
-done: function() {
-    $.each($("imput[name='question-0"]: "checked"), function () {
-        if ($(this).val() == question[0].correctAnswer) {
-            gameStart.correct++;
-        } else {
-            gameStart.incorrect++;
-        }
-    });
-
-    $.each($("imput[name='question-1"}: "checked"), function() {
-        if ($(this).val() == question[1].correctAnswer) {
-            gameStart.correct++;
-        } else {
-            gameStart.incorrect++;
-        }
-    });
-
-    $.each($("imput[name='question-2"}: "checked"), function () {
-    if ($(this).val() == question[2].correctAnswer) {
-        gameStart.correct++;
-    } else {
-        gameStart.incorrect++;
-    }
-    });
-
-    $.each($("imput[name='question-3"}: "checked"), function () {
-    if ($(this).val() == question[3].correctAnswer) {
-        gameStart.correct++;
-    } else {
-        gameStart.incorrect++;
-    }
-    });
-
-    $.each($("imput[name='question-4"}: "checked"), function () {
-    if ($(this).val() == question[4].correctAnswer) {
-        gameStart.correct++;
-    } else {
-        gameStart.incorrect++;
-    }
-    
-    });
-
-this.result();
-};
-
-
-//Display the results for the user
-result: function () {
-
-    clearInterval(timer);
-
-    $('.container2 h2').remove();
-    panel.html('<h2>All Done!</h2>');
-    panel.append('<h3>Correct Answers: ' + this.correct + '</h3>');
-    panel.append('<h3>Incorrect Answers: ' + this.incorrect + '</h3>');
-    panel.append('<h3>Unanswered: ' + (questions.length - (this.correct + this.incorrect)) + '</h3>');
-}
 
 };
