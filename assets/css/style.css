@@ -1,4 +1,4 @@
-body {
+body{
     background-image: url("../images/star-trek.jpg");
     font-family: 'Orbitron', sans-serif;
     background-position: center center;
@@ -7,42 +7,46 @@ body {
     background-size: cover;
 }
 
-.container {
-    background-color: black;
+.container{
+    /* background-color: black; */
     padding-bottom: 25px;
     margin: auto;
     text-align: center;
 }
 
-p {
-    color: white;
+.container2{
+    background-color: black;
+}
+
+p{
+    color: skyblue;
     text-align: center;
     margin-top: 25px;
 }
 
-h1 {
+h1{
     color: white;
     text-align: center;
-    margin-top: 225px;
-    padding: 15px;
+    margin-top: 220px;
 }
 
 h2{
     color: white;
     padding: 10px;
-    font-size: 18;
+    font-size: 26px;
 }
 
 h3{
-    color: purple;
-    padding: 15px;
-    font-size: 24px;
+    color: skyblue;
+    padding: 10px;
+    padding-top: 15px;
+    font-size: 26px;
 }
 
-.btn {
+.btn{
 width: 40%;
 margin-left: 30%;
-margin-right: 30%
+margin-right: 30%;
 }
 
 #done{
@@ -54,5 +58,5 @@ margin-right: 30%
 
 #quiz{
 color: white;
-font-size: 16px;
+font-size: 18px;
 }

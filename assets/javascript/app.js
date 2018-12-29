@@ -63,7 +63,7 @@ var game = {
             quizArea.append('<h3>' + questions[i].question + '</h3>');
 
             for (var j = 0; j < questions[i].answers.length; j++) {
-                quizArea.append('<input id="ans" type="radio" name="question' + '-' + i + '"value="' +  questions[i].answers[j] + '">' + questions[i].answers[j]);
+                quizArea.append('<input type="radio" id="ans" name="question' + '-' + i + '"value="' +  questions[i].answers[j] + '">' + questions[i].answers[j]);
             }
         }
 
