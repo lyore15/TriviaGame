@@ -10,7 +10,7 @@ $(document).on("click", "#done", function () {
 
 //Trivia Question and Answers
 var questions = [{
-    question: "1) Which species was the first discover warp drive?",
+    question: "1) Which species was the first to discover warp drive?",
     answers: ["Humans", "Vulcans", "Romulans", "Klingons"],
     correctAnswer: "Vulcans"
 }, {
